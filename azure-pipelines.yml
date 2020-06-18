@@ -4,10 +4,11 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+- '*'
 
 pool:
   vmImage: 'windows-latest'
+  demands: 'npm'
 
 variables:
   solution: '**/*.sln'
@@ -16,6 +17,11 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+
+- task: Npm@1
+  displayName: 'Run npm install'
+  inputs:
+    verbose: false
 
 - task: NuGetCommand@2
   inputs:
